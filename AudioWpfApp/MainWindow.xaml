@@ -1,0 +1,596 @@
+﻿<Window x:Class="AudioWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AudioWpfApp"
+        mc:Ignorable="d"
+        Title="Musiikin metadata-automaattori" Height="800" Width="1200"
+        AllowDrop="True"
+        DragOver="Window_DragOver"
+        Drop="Window_Drop"
+        Icon="Icon/appicon_icon.ico">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Padding" Value="2" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+        <Grid Margin="20" DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header row: Kartuntatunnus / Custom ID -->
+            <Grid Grid.Row="0" Grid.Column="0" Margin="0 0 0 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="CustomIDTextBlock" Text="Kartuntatunnus" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="3"/>
+                <TextBox x:Name="CustomIDTextBox" Width="200" Grid.Row="1" Grid.Column="0" 
+                         MouseDoubleClick="CustomIDTextBox_MouseDoubleClick"/>
+                <TextBlock x:Name="CustomIDErrorMessageTextBlock" Grid.Row="2" Grid.Column="0" Foreground="Red" Width="200" Height="30"
+                               TextWrapping="Wrap" FontSize="12" FontWeight="Normal"/>
+                <TextBlock x:Name="TrackNumberTextBlock" Text="Uranumero" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="3"/>
+                <TextBox x:Name="TrackNumberTextBox" Width="200" Grid.Row="4" Grid.Column="0"/>
+                <!--<TextBlock x:Name="TrackNumberErrorMessageTextBlock" Grid.Row="11" Grid.Column="0" Foreground="Red" Width="200" Height="20"
+                               TextWrapping="Wrap" FontSize="12" FontWeight="Normal"/>-->
+            </Grid>
+
+            <!-- Header row: Albumin nimi / Album name -->
+            <Grid Grid.Row="0" Grid.Column="1" Margin="20 0 20 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="AlbumNameTextBlock" Text="Albumin nimi" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="3"/>
+                <TextBox x:Name="AlbumNameTextBox" Grid.Row="1" Grid.Column="0"/>
+                <TextBlock x:Name="AlbumNameErrorMessageTextBlock" Grid.Row="2" Grid.Column="0" Foreground="Red" Width="200" Height="30"
+                               TextWrapping="Wrap" FontSize="12" FontWeight="Normal"/>
+
+                <TextBlock x:Name="TrackNameTextBlock" Text="Kappaleen nimi" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="3"/>
+                <TextBox x:Name="TrackNameTextBox" Grid.Row="4" Grid.Column="0"/>
+                <!--<TextBlock x:Name="TrackNamerrorMessageTextBlock" Grid.Row="8" Grid.Column="0" Foreground="Red" Width="200" Height="20"
+                               TextWrapping="Wrap" FontSize="12" FontWeight="Normal"/>-->
+            </Grid>
+
+            <!-- Header Row: Kieli / Language -->
+            <Grid Grid.Row="0" Grid.Column="2" Margin="20 0 0 20">
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Width" Value="70"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Kieli" Grid.Row="0" Grid.Column="0" Margin="3"/>
+                <TextBox x:Name="LanguageTextBox" Width="120" Height="75" Grid.Row="1" Grid.Column="0" Margin="0 0 10 0"
+         TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True">
+                    <TextBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Poista" Click="DeleteMenuItem_Click"/>
+                        </ContextMenu>
+                    </TextBox.ContextMenu>
+                </TextBox>
+
+                <!-- Nested Grid for buttons in the same cell -->
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="suomiButton" Content="suomi" Grid.Row="0" Click="LanguageButton_Click" FontSize="13"/>
+                    <Button x:Name="englantiButton" Content="englanti" Grid.Row="1" Click="LanguageButton_Click" FontSize="13"/>
+                </Grid>
+                <!-- Nested Grid for buttons in the same cell -->
+                <Grid Grid.Row="1" Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="ruotsiButton" Content="ruotsi" Grid.Row="0" Click="LanguageButton_Click" FontSize="13"/>
+                    <Button x:Name="koreaButton" Content="korea" Grid.Row="1" Click="LanguageButton_Click" FontSize="13"/>
+                </Grid>
+                <!-- Nested Grid for buttons in the same cell -->
+                <Grid Grid.Row="1" Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="espanjaButton" Content="saame" Grid.Row="0" Click="LanguageButton_Click" FontSize="13"/>
+                    <ComboBox x:Name="otherLanguagesComboBox" Grid.Row="1" Margin="5" IsEditable="True"
+                              IsTextSearchEnabled="True" PreviewTextInput="OtherLanguagesComboBox_PreviewTextInput"
+                              DropDownClosed="OtherLanguagesComboBox_DropDownClosed">
+                        <ComboBoxItem Content="espanja"/>
+                        <ComboBoxItem Content="islanti"/>
+                        <ComboBoxItem Content="italia"/>
+                        <ComboBoxItem Content="japani"/>
+                        <ComboBoxItem Content="kiina"/>
+                        <ComboBoxItem Content="norja"/>
+                        <ComboBoxItem Content="portugali"/>
+                        <ComboBoxItem Content="ranska"/>
+                        <ComboBoxItem Content="saksa"/>
+                        <ComboBoxItem Content="sanaton"/>
+                        <ComboBoxItem Content="tanska"/>
+                        <ComboBoxItem Content="tunnistamaton"/>
+                        <ComboBoxItem Content="ukraina"/>
+                        <ComboBoxItem Content="venäjä"/>
+                        <ComboBoxItem Content="viro"/>
+                    </ComboBox>
+                </Grid>
+            </Grid>
+
+            <!-- Column 0 -->
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="CatalogueNumberTextBlock" Text="Kataloginumero" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="3 20 3 3"/>
+                    <TextBox x:Name="CatalogueNumberTextBox" Width="200" Grid.Row="1" Grid.Column="0" Margin="0 0 0 15"/>
+
+                    <TextBlock x:Name="ISRCTextBlock" Text="ISRC" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="3"/>
+                    <TextBox x:Name="ISRCTextBox" Width="200" Grid.Row="3" Grid.Column="0" Margin="0 0 0 15"/>
+
+                    <TextBlock x:Name="RecordingYearTextBlock" Text="Äänitysvuosi" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="3"/>
+                    <TextBox x:Name="RecordingYearTextBox" Width="200" Grid.Row="5" Grid.Column="0" Margin="0 0 0 15"/>
+
+                    <TextBlock x:Name="PublicationYearTextBlock" Text="Julkaisuvuosi" VerticalAlignment="Center" Grid.Row="6" Grid.Column="0" Margin="3"/>
+                    <TextBox x:Name="PublicationYearTextBox" Width="200" Grid.Row="7" Grid.Column="0" Margin="0 0 0 15"/>
+
+                    <TextBlock x:Name="RecordLabelTextBlock" Text="Levy-yhtiö" VerticalAlignment="Center" Grid.Row="8" Grid.Column="0" Margin="3"/>
+                    <TextBox x:Name="RecordLabelTextBox" Width="200" Height="75" Grid.Row="9" Grid.Column="0" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto" Margin="0 0 0 15"/>
+
+                    <CheckBox x:Name="FinnishContentCheckBox" Content="Fennica" Grid.Row="10" Grid.Column="0" Margin="3"/>
+                    <CheckBox x:Name="YleMasterCheckBox" Content="Yle master" Grid.Row="11" Grid.Column="0" Margin="3"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Column 1 (Performers & Authors) -->
+            <StackPanel Grid.Column="1" Grid.Row="1" Margin="20,20,20,0">
+
+                <!-- Performers Section -->
+                <!-- Button for adding performers -->
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Esiintyjät" VerticalAlignment="Center"/>
+                    <Button Content="+Lisää esiintyjä" Click="AddPerformer_Click" Margin="10,0,0,0" Grid.Column="1" Padding="10 0"/>
+                </Grid>
+
+                <DataGrid x:Name="PerformerDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Height="200" HeadersVisibility="Column" Margin="0,0,0,40"
+                          AllowDrop="True"
+                          PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown"
+                          PreviewMouseMove="DataGrid_PreviewMouseMove"
+                          Drop="DataGrid_Drop">
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <EventSetter Event="DragEnter" Handler="DataGridRow_DragEnter"/>
+                            <EventSetter Event="DragLeave" Handler="DataGridRow_DragLeave"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="Turquoise"/>
+                            <Setter Property="BorderThickness" Value="1,1,1,2"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="Padding" Value="5,0,0,0"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="FontSize" Value="13"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <!-- Column Header Text & Bindings -->
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nimi" Width="3*" Binding="{Binding PerformerName}"/>
+                        <DataGridTextColumn Header="Soitin" Width="3*" Binding="{Binding PerformerInstrument}"/>
+                        <DataGridTemplateColumn Header="" Width="1*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Poista" Click="DeletePerformerButton_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Authors Section -->
+                <!-- Button for adding authors -->
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Tekijät" VerticalAlignment="Center"/>
+                    <Button Content="+Lisää tekijä" Click="AddAuthor_Click" Margin="10,0,0,0" Grid.Column="1" Padding="10 0"/>
+                </Grid>
+
+
+                <DataGrid x:Name="AuthorDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Height="200" HeadersVisibility="Column"
+                          AllowDrop="True"
+                          PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown"
+                          PreviewMouseMove="DataGrid_PreviewMouseMove"
+                          Drop="DataGrid_Drop">
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <EventSetter Event="DragEnter" Handler="DataGridRow_DragEnter"/>
+                            <EventSetter Event="DragLeave" Handler="DataGridRow_DragLeave"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="Turquoise"/>
+                            <Setter Property="BorderThickness" Value="1,1,1,2"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="Padding" Value="5,0,0,0"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="FontSize" Value="13"/>
+                        </Style>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="FontWeight" Value="Regular"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <!-- Column Header Text & Bindings -->
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nimi" Width="3*" Binding="{Binding AuthorName}"/>
+                        <DataGridTextColumn Header="Rooli" Width="3*" Binding="{Binding AuthorRole}"/>
+                        <DataGridTemplateColumn Header="" Width="1*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Poista" Click="DeleteAuthorButton_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <!-- Column 2 -->
+            <StackPanel Grid.Column="2" Grid.Row="1" Margin="20 0 0 0 ">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Padding" Value="2"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Kokoonpano / Ensemble -->
+                    <Grid Grid.Row="0" Grid.Column="0" Margin="0 0 0 20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Kokoonpano" Grid.Row="0" Grid.Column="0" Margin="3"/>
+                        <TextBox x:Name="EnsembleTextBox" Width="125" Height="75" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0"
+         TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True">
+                            <TextBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Poista" Click="DeleteMenuItem_Click"/>
+                                </ContextMenu>
+                            </TextBox.ContextMenu>
+                        </TextBox>
+
+                        <Grid Grid.Row="1" Grid.Column="1" Margin="0 0 10 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="KMMinusButton" Tag="KM" Content="-" Grid.Row="0" Grid.Column="0" Padding="5" Click="MinusButton_Click" Width="20"/>
+                            <Button x:Name="KMButton" Tag="KM" Content="KM" Grid.Row="0" Grid.Column="1" Padding="7 5" Click="EnsembleButton_Click" Width="40"/>
+                            <Button x:Name="KMPlusButton" Tag="KM" Content="+" Grid.Row="0" Grid.Column="2" Padding="5" Click="PlusButton_Click" Width="20"/>
+
+                            <Button x:Name="KNMinusButton" Tag="KN" Content="-" Grid.Row="1" Grid.Column="0" Padding="5" Click="MinusButton_Click" Width="20"/>
+                            <Button x:Name="KNButton" Tag="KN" Content="KN" Grid.Row="1" Grid.Column="1" Padding="7 5" Click="EnsembleButton_Click" Width="40"/>
+                            <Button x:Name="KNPlusButton" Tag="KN" Content="+" Grid.Row="1" Grid.Column="2" Padding="5" Click="PlusButton_Click" Width="20"/>
+
+                            <Button x:Name="KSMinusButton" Tag="KS" Content="-" Grid.Row="2" Grid.Column="0" Padding="5" Margin="0 10 0 0" Click="MinusButton_Click" Width="20"/>
+                            <Button x:Name="KSButton" Tag="KS" Content="KS" Grid.Row="2" Grid.Column="1" Padding="7 5" Margin="0 10 0 0" Click="EnsembleButton_Click"
+                                Width="40"/>
+                            <Button x:Name="KSPlusButton" Tag="KS" Content="+" Grid.Row="2" Grid.Column="2" Padding="5" Margin="0 10 0 0" Click="PlusButton_Click" Width="20"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="2" Margin="0 0 10 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="KQMinusButton" Tag="KQ" Content="-" Grid.Row="0" Grid.Column="1" Padding="5" Click="MinusButton_Click" Width="20"/>
+                            <Button x:Name="KQButton" Tag="KQ" Content="KQ" Grid.Row="0" Grid.Column="2" Padding="7 5" Click="EnsembleButton_Click" Width="40"/>
+                            <Button x:Name="KQPlusButton" Tag="KQ" Content="+" Grid.Row="0" Grid.Column="3" Padding="5" Click="PlusButton_Click" Width="20"/>
+
+                            <Button x:Name="KVMinusButton" Tag="KV" Content="-" Grid.Row="1" Grid.Column="1" Padding="5" Click="MinusButton_Click" Width="20"/>
+                            <Button x:Name="KVButton" Tag="KV" Content="KV" Grid.Row="1" Grid.Column="2" Padding="7 5" Click="EnsembleButton_Click" Width="40"/>
+                            <Button x:Name="KVPlusButton" Tag="KV" Content="+" Grid.Row="1" Grid.Column="3" Padding="5" Click="PlusButton_Click" Width="20"/>
+
+                            <Button x:Name="KZMinusButton" Tag="KZ" Content="-" Grid.Row="2" Grid.Column="1" Padding="5" Margin="0 10 0 0" Click="MinusButton_Click" Width="20"/>
+                            <Button x:Name="KZButton" Tag="KZ" Content="KZ" Grid.Row="2" Grid.Column="2" Padding="7 5" Margin="0 10 0 0" Click="EnsembleButton_Click"
+                                Width="40"/>
+                            <Button x:Name="KZPlusButton" Tag="KZ" Content="+" Grid.Row="2" Grid.Column="3" Padding="5" Margin="0 10 0 0" Click="PlusButton_Click" Width="20"/>
+                        </Grid>
+                        <Grid Grid.Row="3" Grid.Column="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--<Button Content="KI" Grid.Row="0" Grid.Column="2" Padding="7 5" Click="EnsembleButton_Click"/>-->
+                            <!--<Button Content="KI" Grid.Row="1" Grid.Column="2" Padding="7 5" Click="EnsembleButton_Click"/>-->
+                            <Button x:Name="KIButton" Content="KI" Grid.Row="2" Grid.Column="2" Padding="7 5" Margin="0 10 0 0"
+                                    Click="EnsembleButton_Click" Width="70"/>
+                        </Grid>
+                    </Grid>
+
+                    <!-- Laji / Genre -->
+                    <Grid Grid.Row="4" Grid.Column="0">
+                        <Grid.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="Width" Value="70"/>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Laji" Grid.Row="0" Grid.Column="0" Margin="3"/>
+                        <TextBox x:Name="GenreTextBox" Width="125" Height="75" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0"
+         TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True">
+                            <TextBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Poista" Click="DeleteMenuItem_Click"/>
+                                </ContextMenu>
+                            </TextBox.ContextMenu>
+                        </TextBox>
+
+                        <Grid Grid.Row="1" Grid.Column="1" Width="Auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Button x:Name="L4AButton" Content="L4A" Grid.Row="0" Click="GenreButton_Click" FontSize="13"/>
+                            <Button x:Name="L5AButton" Content="L5A" Grid.Row="1" Click="GenreButton_Click" FontSize="13"/>
+                        </Grid>
+                        <Grid Grid.Row="5" Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="L6CButton" Content="L6C" Grid.Row="0" Click="GenreButton_Click" FontSize="13"/>
+                            <Button x:Name="L6VButton" Content="L6V" Grid.Row="1" Click="GenreButton_Click" FontSize="13"/>
+                        </Grid>
+                        <Grid Grid.Row="5" Grid.Column="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <!-- Each takes half the width -->
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="L9EButton" Content="L9E" Click="GenreButton_Click" FontSize="13" Grid.Column="0" Width="35"/>
+                                <Button x:Name="L9TButton" Content="L9T" Click="GenreButton_Click" FontSize="13" Grid.Column="1" Width="35"/>
+                            </Grid>
+
+                            <ComboBox x:Name="otherGenresComboBox" Grid.Row="1" Margin="5" IsEditable="True"
+                                      IsTextSearchEnabled="True" PreviewTextInput="OtherGenresComboBox_PreviewTextInput"
+                                      DropDownClosed="OtherGenresComboBox_DropDownClosed">
+                            </ComboBox>
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="5" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Äänitysmaa" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="3 20 3 3"/>
+                        <ComboBox x:Name="RecordingCountryComboBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 3 3 0"
+                              IsEditable="True" HorizontalAlignment="Stretch" Width="430">
+                            <ComboBoxItem Content="Alankomaat" />
+                            <ComboBoxItem Content="Argentiina" />
+                            <ComboBoxItem Content="Australia" />
+                            <ComboBoxItem Content="Brasilia" />
+                            <ComboBoxItem Content="Englanti (ja Kanaalin ym. saaret; Iso-Britannian valtiollinen koodi)" />
+                            <ComboBoxItem Content="Espanja" />
+                            <ComboBoxItem Content="Etelä-Korea" />
+                            <ComboBoxItem Content="Irlanti (tasavalta ja erittelemätön saarialue)" />
+                            <ComboBoxItem Content="Islanti" />
+                            <ComboBoxItem Content="Japani" />
+                            <ComboBoxItem Content="Kanada" />
+                            <ComboBoxItem Content="Meksiko" />
+                            <ComboBoxItem Content="Nigeria" />
+                            <ComboBoxItem Content="Norja" />
+                            <ComboBoxItem Content="Ranska" />
+                            <ComboBoxItem Content="Ruotsi" />
+                            <ComboBoxItem Content="Saksa" />
+                            <ComboBoxItem Content="Suomi" />
+                            <ComboBoxItem Content="Tanska" />
+                            <ComboBoxItem Content="Venäjä (myös nykyisen Venäjän federaation valtiollinen koodi)" />
+                            <ComboBoxItem Content="Yhdysvallat" />
+                        </ComboBox>
+
+                        <CheckBox x:Name="RecordingCountryEstimatedCheckBox" Content="Äänitysmaa arvioitu" Grid.Row="2" Grid.Column="0" Margin="0 10 3 15"/>
+
+                        <TextBlock x:Name="KeywordTextBlock" Text="Asiasanat" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="3"/>
+                        <TextBox x:Name="KeywordTextBox" Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0" Margin="0 0 0 15"/>
+
+                        <TextBlock x:Name="CultureTextBlock" Text="Kulttuuri" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Margin="3"/>
+                        <TextBox x:Name="KulttuuriTextBox" Grid.Row="6" Grid.ColumnSpan="2" Grid.Column="0" Margin="0 0 0 15"/>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" Margin="10 0 10 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- CreateJSON Button on the Left -->
+            <Button x:Name="CreateJSONButton" Content="Luo JSON" Margin="5,0" Grid.Column="0" Padding="20 5" Height="40"
+                    Click="CreateJSONButton_Click"/>
+
+            <!-- Clear Button on the right -->
+            <Button x:Name="ClearButton" Content="Tyhjennä" Margin="5,0" HorizontalAlignment="Right" Grid.Column="2" Height="40"
+                    Padding="20 5" Foreground="Red" Click="ClearButton_Click"/>
+        </Grid>
+    </DockPanel>
+</Window>

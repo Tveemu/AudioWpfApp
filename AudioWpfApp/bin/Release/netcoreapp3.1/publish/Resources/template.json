@@ -1,0 +1,119 @@
+{
+  "tracks": [
+    {
+      "track_number": "1",
+      "title": "",
+      "isrc": "",
+      "custom": {
+        "finnish_content": "no",
+        "yle_master": "no",
+        "CustomID": "",
+        "languages": [
+        ],
+        "genre": [
+        ],
+        "ensemble": [
+        ],
+        "publication_year": "",
+        "theme": "",
+        "origin": "",
+        "recording_country": "",
+        "recording_country_estimated":  ""
+      },
+
+      "album": {
+        "agents": [],
+        "title": " ",
+        "album_ref": "",
+        "descriptions": [],
+        "display_artists": [],
+        "display_artists_aliases": [],
+        "display_artists_full_names": [],
+        "showcase": [],
+        "public": false,
+        "image": {
+          "is_converted": false
+        },
+        "artists_master_ownerships": [
+          {
+            "artist": {
+              "full_name": "",
+              "custom": {}
+            },
+            "rights_type": {
+              "key": "musician",
+              "type": "master-artist"
+            },
+            "instruments": []
+          }
+        ],
+        "artists_publishing_ownerships": [],
+        "master_ownerships": [
+          {
+            "label": {
+              "label_name": "",
+              "custom": {}
+            },
+            "rights_type": {
+              "key": "label",
+              "type": "master-label"
+            }
+          }
+        ],
+        "publishing_ownerships": [],
+        "attachments": [],
+        "custom": {
+          "finnish_content": "no",
+          "yle_master": "no",
+          "CustomID": "",
+          "genre": [
+          ],
+          "publication_year": "",
+          "recording_country": "",
+          "recording_country_estimated": "",
+          "WorkflowStatus": "Täydet_tiedot"
+        }
+      },
+      "artists_master_ownerships": [
+        {
+          "instruments": [
+            {
+              "comp": [],
+              "key": "",
+              "names": [
+                {
+                  "locale": "en",
+                  "value": ""
+                }
+              ]
+            }
+          ],
+          "artist": {
+            "full_name": ""
+          },
+          "rights_type": {
+            "key": "musician",
+            "type": "master-artist"
+          }
+        }
+      ],
+      "artists_publishing_ownerships": [
+        {
+          "artist": {
+            "image": {
+              "is_converted": false
+            },
+            "aliases": [],
+            "full_name": "",
+            "custom": {},
+            "descriptions": []
+          },
+          "rights_type": {
+            "key": "author",
+            "type": "publishing-artist"
+          }
+        }
+      ]
+    }
+  ]
+}

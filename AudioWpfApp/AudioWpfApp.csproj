@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>appicon_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icon\appicon_icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\History.txt" />
+    <Content Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\License.html" />
+    <Content Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\ReadMe.txt" />
+    <Content Include="bin\Debug\netcoreapp3.1\Resources\template.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\LIBCURL.DLL" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\LICENSE" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\MediaInfo.exe" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\en.Example.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\en.Example_HTML.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Example.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Example_HTML.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\fr.Example.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\it.Esempio.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\it.Esempio_HTML.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Table by fields, compact %28HTML%29.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Table by fields, short %28HTML%29.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Table by fields, standard %28HTML%29.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Table by fields, verbose %28HTML%29.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Table by streams, compact %28HTML%29.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Table by streams, short %28HTML%29.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Table by streams, standard %28HTML%29.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\Table by streams, verbose %28HTML%29.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\XML.csv" />
+    <None Include="bin\Debug\netcoreapp3.1\Resources\mediainfo\Plugin\Custom\zzz_Contrib - Dusil %28HTML%29.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icon\appicon_icon.ico" />
+  </ItemGroup>
+
+</Project>

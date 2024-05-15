@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "gSTRbnbxE4oNUIUEv+ADnm+K379MwRVUzeEyw4h5A6V8Mnc3tgl82YqtkV17TFm+ngcf08Uh+frv/FhYA82FBw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Teemu\\source\\repos\\AudioWpfApp\\AudioWpfApp\\AudioWpfApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Teemu\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Teemu\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.24\\microsoft.netcore.app.host.win-x64.3.1.24.nupkg.sha512"
+  ],
+  "logs": []
+}
